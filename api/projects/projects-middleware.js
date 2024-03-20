@@ -30,7 +30,7 @@ async function validateProjectId(req, res, next){
 async function validatePost (req, res, next) {
     console.log(req.method)
     const { name, description, completed} = req.body
-    if (name && description){
+    if ((name && description) && (req.method !== 'PUT' || typeof(completed) == 'boolean')){
         req.body = {
             name: name,
             description: description,

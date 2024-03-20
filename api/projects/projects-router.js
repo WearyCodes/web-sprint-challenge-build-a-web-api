@@ -36,4 +36,27 @@ router.put('/:id', validatePost, (req, res, next) => {
     .catch(err=> console.log(err))
 })
 
+
+router.delete('/:id', validateProjectId, (req, res, next) => {
+    console.log('DELETING ROUTER', req.params)
+    if (!Projects.get(req.params.id)) {res.status(404)}
+    else {
+    Projects.remove(req.params.id)
+    .then(
+        res.json({
+            message: `Project with id: ${req.params.id} Deleted`
+        })
+    )
+    .catch(err => console.log(err))}
+})
+
+// - [ ] `[GET] /api/projects/:id/actions`
+//   - Returns an array of actions (could be empty) belonging to a project with the given `id`.
+//   - If there is no project with the given `id` it responds with a status code 404.
+
+router.get('/:id/actions', validateProjectId, async (req, res, next) => {
+    const { id } = req.params
+    res.send(req.project.actions)
+})
+
 module.exports = router
