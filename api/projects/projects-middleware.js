@@ -27,22 +27,23 @@ async function validateProjectId(req, res, next){
 // | name        | string    | required                                                                    |
 // | description | string    | required                                                                    |
 // | completed   | boolean   | not required, defaults to false when creating projects                      |
-async function validatePost (req, res, next) {
-    console.log(req.method)
-    const { name, description, completed} = req.body
-    if ((name && description) && (req.method !== 'PUT' || typeof(completed) == 'boolean')){
+async function validatePost(req, res, next) {
+    console.log(req.method);
+    const { name, description, completed } = req.body;
+    if ((name && description) && (typeof completed === 'boolean' || req.method !== 'PUT')) {
         req.body = {
             name: name,
             description: description,
-            completed: typeof(completed) === 'boolean' ? completed : false
-        }
-        next()
+            completed:  completed === true ? true : false
+        };
+        next();
     } else {
         res.status(400).json({
             message: 'Missing name, description, or completed'
-        })
+        });
     }
 }
+
 
 
 module.exports = {
