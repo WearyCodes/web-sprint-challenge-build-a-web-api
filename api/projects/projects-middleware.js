@@ -34,7 +34,7 @@ async function validatePost (req, res, next) {
         req.body = {
             name: name,
             description: description,
-            completed: completed || true
+            completed: typeof(completed) === 'boolean' ? completed : false
         }
         next()
     } else {
