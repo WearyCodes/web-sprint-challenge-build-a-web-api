@@ -56,7 +56,7 @@ router.delete('/:id', validateProjectId, (req, res, next) => {
 
 router.get('/:id/actions', validateProjectId, async (req, res, next) => {
     const { id } = req.params
-    res.send(req.project.actions)
+    res.send(req.project.actions || [])
 })
 
 module.exports = router
