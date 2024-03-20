@@ -3,19 +3,18 @@ const Projects = require('./projects-model')
 
 async function validateProjectId(req, res, next){
     const { id } = req.params
-    await Projects.get(id)
+   Projects.get(id)
     .then(project => {
         if (!project) {
-            res.status(404)
+            res.status(404).send()
         } else {
             req.project = project
             next()
         }
     })
     .catch(err => {
-        res.status(404)
+        res.status(404).send()
     })
-    next()
 }
 
 // - [ ] `[POST] /api/projects`
